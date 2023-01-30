@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    font-size: 62.5%;
+    --yellow: #f1e542;
+    --black: #141517;
+    --grey: #444444;
+    --white: #ededed;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --red: #c0392b;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.font-text {
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+height: 100vh;
+width: 100vw;
+font-size: 1.6rem;
+overflow: hidden;
+}
