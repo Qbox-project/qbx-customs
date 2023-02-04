@@ -32,7 +32,7 @@ ModTypes = {
     [30] = {name = "VMT_INTERIOR4", label = "Dial", num = 30},
     [31] = {name = "VMT_INTERIOR5", label = "Door Speaker", num = 31},
     [32] = {name = "VMT_SEATS", label = "Seats", num = 32, bone = "seat_pside_f"},
-    [33] = {name = "VMT_STEERING", label = "Steering", num = 33},
+    [33] = {name = "VMT_STEERING", label = "Steering", num = 33, bone = "steeringwheel"},
     [34] = {name = "VMT_KNOB", label = "Knob", num = 34},
     [35] = {name = "VMT_PLAQUE", label = "Plaque", num = 35},
     [36] = {name = "VMT_ICE", label = "Speaker", num = 36},
