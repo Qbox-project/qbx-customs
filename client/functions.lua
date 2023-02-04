@@ -560,7 +560,7 @@ function PreviewColour(data)
     end
 end
 
-RegisterNetEvent('xv-customs:client:repairVehicle', function()
+RegisterNetEvent('qbx-customs:client:repairVehicle', function()
     SetVehicleFixed(currentVehicleEntity)
 end)
 
@@ -630,7 +630,7 @@ function PurchaseCart(data)
     end
 end
 
-RegisterNetEvent("xv-customs:client:buyCart", function(data)
+RegisterNetEvent("qbx-customs:client:buyCart", function(data)
 
 
 end)
