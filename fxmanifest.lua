@@ -2,13 +2,14 @@ fx_version 'cerulean'
 
 game "gta5"
 
-author "Xirvin"
+author "QBOX"
 version '0.0.1'
 
 lua54 'yes'
 
 
 ui_page 'html/index.html'
+-- ui_page "http://localhost:3000/"
 
 shared_script {
   "shared/**",

@@ -3,6 +3,7 @@
     import { fly } from 'svelte/transition'
 	import { createEventDispatcher } from 'svelte'
 	import { SendNUI } from '@utils/SendNUI'
+    import { cart } from '@store/stores'
 
 	const dispatch = createEventDispatcher()
     export let colourMap = {}
@@ -65,8 +66,8 @@
             tempData.customColour = true
             tempData.type = paintType
             tempData.colourValue = {r,g,b}
-            SendNUI("PreviewChange", tempData)
-            console.log("PREVIEW CUSTOM PAINT")
+            SendNUI("PreviewColor", tempData)
+            // console.log("PREVIEW CUSTOM PAINT")
     }
 
 
@@ -139,6 +140,19 @@
             Cancel
             </button>
             <button class="w-full bg-[color:var(--green)] text-[color:var(--white)] font-text font-bold active:brightness-90 hover:brightness-110"
+                on:click={() => {
+                    let tempData = optionData || {}
+                    tempData.type = "colour"
+                    tempData.target = target
+                    tempData.colour = true
+                    tempData.customColour = true
+                    tempData.type = paintType
+                    tempData.colourValue = {r,g,b}
+                    // console.log(tempData)
+                    $cart = [...$cart, tempData]
+                    dispatch("purchased")
+                    dispatch('close')
+                }}
             >
             Apply
             </button>
