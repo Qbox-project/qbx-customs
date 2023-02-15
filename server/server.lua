@@ -11,7 +11,6 @@ RegisterServerEvent('qbx-customs:server:buyRepair', function(data)
     TriggerClientEvent("qbx-customs:client:repairVehicle", src)
 end)
 
-
 RegisterNetEvent("qbx-customs:server:buyCart", function(cart)
     local src = source
     
