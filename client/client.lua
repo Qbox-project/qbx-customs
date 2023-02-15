@@ -45,16 +45,17 @@ RegisterNUICallback("UpdateCart", function(data, cb)
 end)
 
 RegisterNUICallback("PurchaseCart", function(data, cb)
-    local veh = GetVehiclePedIsIn(cache.ped, false)
+    local veh = cache.vehicle
+    
     local mods = QBCore.Functions.GetVehicleProperties(veh)
-    local plate = GetVehicleNumberPlateText(veh)
+    local plate = QBCore.Functions.GetPlate(veh)
 
     local sendData = {
         plate = plate,
         mods = mods
     }
     
-    TriggerServerEvent('xv-customs:server:buyCart', sendData)
+    TriggerServerEvent('qbx-customs:server:buyCart', sendData)
     
     cb(1)
 end)

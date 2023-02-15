@@ -10,14 +10,14 @@ RegisterNetEvent("qbx-customs:server:buyCart", function(cart)
     local plate = cart.plate
     local mods = cart.mods
 
-    if IsVehicleOwned(plate) then 
-        exports.oxmysql:execute('UPDATE player_vehicles SET mods = ? WHERE plate = ?', {json.encode(mods), plate})
-    end
+    if not IsVehicleOwned(plate) then return end
+    exports.oxmysql:execute('UPDATE player_vehicles SET mods = ? WHERE plate = ?', {json.encode(mods), plate})
+    
 end)
 
 
 
-function IsVehicleOwned(plate)
+local function IsVehicleOwned(plate)
     local result = exports.oxmysql:scalarSync('SELECT plate FROM player_vehicles WHERE plate = ?', {plate})
     if result then
         return true
