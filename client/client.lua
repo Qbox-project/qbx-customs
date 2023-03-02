@@ -60,7 +60,7 @@ RegisterNUICallback("PurchaseCart", function(data, cb)
 end)
 
 local function onEnter(self)
-    if not IsPedInAnyVehicle(cache.ped, false) then return end
+    if not cache.vehicle then return end
 
     lib.showTextUI('Customize Vehicle', { position = 'left-center' })
     lib.addRadialItem({
