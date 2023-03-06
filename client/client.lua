@@ -1,17 +1,15 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local inZoneNotMenu = false
 local zones = {}
+local location = nil
 
 RegisterCommand('test', function()
     EnterCustom("Benny's")
 end, false)
 
-
 RegisterNUICallback('hideUI', function(data, cb)
     closeMenu()
     cb(1)
 end)
-
 
 RegisterNUICallback("PreviewChange", function(data, cb)
     PreviewChange(data)
@@ -61,33 +59,64 @@ RegisterNUICallback("PurchaseCart", function(data, cb)
     cb(1)
 end)
 
+local function onEnter(self)
+    if not cache.vehicle then return end
 
--- local function onEnter(self)
---     if not IsPedInAnyVehicle(ped, false) then return end
---     local location = self.name
---     inZone = true
---     lib.showTextUI('[E] - Customise vehicle')
---     while inZone do
---         Wait(0)
---         if IsControlJustPressed(0, 38) then
---             EnterCustom(location)
---             inZoneNotMenu = false
---             lib.hideTextUI()
---         end
---     end
--- end
+    lib.showTextUI('Customize Vehicle', { position = 'left-center' })
+    lib.addRadialItem({
+        id = 'customs_radial',
+        label = 'Enter Bennys',
+        icon = 'wrench',
+        onSelect = function()
+            EnterCustom(location)
+        end,
+    })
+    location = self.name
+end
 
+local function onExit(self)
+    lib.removeRadialItem('customs_radial')
+    lib.hideTextUI()
+    location = nil
+end
 
--- for _, zone in pairs(Config.Spots) do
---     zones[zone.name] = lib.zones.box({
---         name = zone.name,
---         coords = zone.coords,
---         size = zone.size,
---         rotation = zone.rotation,
---         debug = false,
---         onExit = onExit,
---         onEnter = onEnter,
---     })
--- end
+local function CreateBennysShops()
+    for _, zone in pairs(Config.Spots) do
+        zones[zone.name] = lib.zones.box({
+            name = zone.name,
+            coords = zone.coords,
+            size = zone.size,
+            rotation = zone.rotation,
+            debug = false,
+            onExit = onExit,
+            onEnter = onEnter,
+        })
+    end
+end
 
--- 
+local function RemoveBennysShops()
+    onExit()
+end
+
+function LoggedIn()
+    CreateBennysShops()
+end
+
+function LoggedOff()
+    RemoveBennysShops()
+end
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName or not LocalPlayer.state.isLoggedIn then return end
+    LoggedIn()
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource == GetCurrentResourceName() then
+        RemoveBennysShops()
+    end
+end)
+
+AddStateBagChangeHandler('isLoggedIn', _, function(_bagName, _key, value, _reserved, _replicated)
+    if value then LoggedIn() else LoggedOff() end
+end)
